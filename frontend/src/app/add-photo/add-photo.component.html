@@ -1,0 +1,135 @@
+<div class="jumbotron">
+  <h2>Post new photos</h2>
+</div>
+
+<!--Buttons to add new photos -->
+<div *ngIf="!isUploading">
+
+  <h4>Choose by:</h4>
+  <div class="container-add-photos-button">
+    <!-- Button to add new photos by selecting directly the files -->
+    <button type="button" (click)="fileInput.click()" class="add-photos-button">
+      Files
+      <input #fileInput required multiple type="file" accept="image/jpeg, image/png, image/gif, image/webp"
+             (change)="onPhotosInput($event)" style="display:none;"/>
+    </button>
+
+    <!-- Button to add new photos by selecting a directory -->
+    <button type="button" (click)="directoryInput.click()" class="add-photos-button">
+      Directory
+      <input #directoryInput required webkitdirectory mozdirectory msdirectory odirectory directory multiple type="file"
+             accept="image/jpeg, image/png, image/gif, image/webp"
+             (change)="onPhotosInput($event)" style="display:none;"/>
+    </button>
+  </div>
+</div>
+
+<hr *ngIf="this.filesInfo.length > 0 || this.message">
+
+<!-- Message showing how many files where selected in total-->
+<div>
+  <div *ngIf="filesInfo.length == 1">
+    <h5>{{filesInfo.length}} file selected</h5>
+  </div>
+  <div *ngIf="filesInfo.length > 1">
+    <h5>{{filesInfo.length}} files selected</h5>
+  </div>
+</div>
+
+<!-- Show the first 10 photos to be uploaded -->
+<div *ngIf="this.filesInfo.length > 0" class="container-photo-preview">
+  <div *ngFor="let fileInfo of filesInfo; let indexOfelement=index;">
+    <img id="{{ 'photo-' + indexOfelement }}" [src]="fileInfo.photoBase64"
+         [ngClass]="{'selected-prompt-file': this.filesInfo.length == 1, 'hidden': indexOfelement > 9 }"
+         (click)="choosePromptFile(indexOfelement)"/>
+  </div>
+</div>
+
+<hr *ngIf="this.isPromptOpen && this.filesInfo.length > 0">
+
+<!-- Prompt to change the photo's name and description if there's only one photo -->
+<form *ngIf="isPromptOpen && this.filesInfo.length > 0">
+  <h5>File: {{this.progressInfo[currentPromptFileIndex].fullFileName}}</h5>
+  <div class="container-photo-form">
+    <div id="photo-form-left">
+      <label *ngIf="this.filesInfo.length == 1">Name</label>
+      <label>Description</label>
+    </div>
+    <div id="photo-form-right">
+      <input *ngIf="this.filesInfo.length == 1" #photoName type="text" name="PhotoName"
+             (change)="modifyPhotoName(this.filesInfo[currentPromptFileIndex], photoName.value)"
+             maxlength="100">
+      <input id="form-input-photo-description" #photoDescription type="text" name="PhotoDescritpion"
+             (change)="modifyPhotoDescription(this.filesInfo[currentPromptFileIndex], photoDescription.value)"
+             maxlength="500">
+    </div>
+  </div>
+</form>
+
+<!--Buttons to switch current prompt file (file to be edited) -->
+<div *ngIf="isPromptOpen && this.filesInfo.length > 1">
+
+  <div class="container-switch-prompt-file-buttons">
+    <!-- Button go to previous prompt file -->
+    <button *ngIf="this.filesInfo[this.currentPromptFileIndex - 1]" type="button" (click)="previousPromptFile()"
+            class="switch-prompt-file-button">&#5130; Previous
+    </button>
+    <button *ngIf="!this.filesInfo[this.currentPromptFileIndex - 1]" type="button"
+            class="button-disabled switch-prompt-file-button">&#5130; Previous
+    </button>
+
+    <!-- Button to go to next prompt file -->
+    <button *ngIf="this.filesInfo[this.currentPromptFileIndex + 1]" type="button" (click)="nextPromptFile()"
+            class="switch-prompt-file-button">Next &#5125;
+    </button>
+    <button *ngIf="!this.filesInfo[this.currentPromptFileIndex + 1]" type="button"
+            class="button-disabled switch-prompt-file-button">Next &#5125;
+    </button>
+  </div>
+</div>
+
+<hr *ngIf="this.filesInfo.length > 0">
+
+<!-- Button to initialize the upload of all photos selected -->
+<button *ngIf="!isUploading && this.filesInfo.length > 0" (click)="savePhotos()">Save</button>
+
+<!-- Uploading message -->
+<div *ngIf="isUploading" class="container-uploading-message">
+  <h4>Uploading </h4>
+  <img src="assets/loading-image.gif"/>
+</div>
+
+<!-- Messages -->
+<div *ngIf="message"><h4>{{message}}</h4></div>
+
+<!-- Error when selecting files (file not an image or format unsupported)-->
+<div class="container-selecting-files-error-messages">
+  <div *ngFor="let uploadMessage of fileSelectionMessages">
+    <h6>{{ uploadMessage }}</h6>
+  </div>
+</div>
+
+<!-- Container for progresses bar -->
+<div class="container-progress">
+  <div *ngIf="isUploading || message">
+    <div *ngFor="let progressInfo of progressInfo" class="mb-2">
+      <h5>File: {{ progressInfo.fullFileName }}</h5>
+      <div class="container-progress-info-bar">
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progressInfo.value }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progressInfo.value + '%' }"
+          >
+            {{ progressInfo.value }}%
+          </div>
+        </div>
+      </div>
+      <h6 *ngIf="progressInfo.errorMsg">Error: {{progressInfo.errorMsg}}</h6>
+    </div>
+  </div>
+</div>
+

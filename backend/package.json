@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "./bin/www",
+    "serverstart": "DEBUG=backend:* npm run start",
+    "nodemon-serverstart": "DEBUG=backend:* nodemon serverstart"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "^0.29.0",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.3",
+    "morgan": "~1.9.1",
+    "nodemon": "*",
+    "pm2": "^4.5.6",
+    "sharp": "*"
+  },
+  "devDependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
+}

@@ -1,0 +1,79 @@
+<div class="jumbotron" *ngIf="currentUser">
+  <h2>
+    <strong>{{ jumboTronUsernameShowcase }}</strong> Profile
+  </h2>
+</div>
+
+<h3 *ngIf="!isPhotoListIndexed">
+  Indexing photos...
+</h3>
+
+<div *ngIf="!hasPhotos && !isIndexingPhotos && defaultSelectValue === 'Uploads'">
+  <h3>No photos uploaded yet!</h3>
+</div>
+
+<div *ngIf="!hasFavourites && !isIndexingPhotos && defaultSelectValue === 'Favourites'">
+  <h3>No photos favourited yet!</h3>
+</div>
+
+<div class="sticky-container sticky">
+  <div id="sticky-child-left" *ngIf="isPhotoListIndexed" class="text-left hideable">
+    <h4>{{selectHorizontalText}} ➤</h4>
+  </div>
+
+  <div id="sticky-child-right" *ngIf="isPhotoListIndexed">
+    <h4>Sort:</h4>
+    <select [(ngModel)]="defaultSelectValue" class="sort-select" (change)="changeSelection($event)">
+      <option *ngFor="let selectValue of selectValues" [ngValue]="selectValue"
+              class="sort-select-option">{{selectValue}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="text-photo-feed-container">
+  <h4 class="text-vertical sticky">
+    {{selectVerticalText}} ➤
+  </h4>
+
+  <div *ngIf="this.user" class="photo-feed-container">
+    <a *ngFor="let thumbnail of thumbnails; let indexOfelement=index;">
+      <img id="loading-img" *ngIf="!thumbnail._id" src="{{thumbnail.base64Thumbnail}}">
+      <div *ngIf="thumbnail._id" class="photo-container" routerLink="/photo/{{thumbnail._id}}"
+           (keydown.enter)="onKeyDownEvent(thumbnail._id)">
+        <img src="{{thumbnail.base64Thumbnail}}">
+        <div class="overlay-image">
+          <div class="photo-name">{{thumbnail.name}}<br></div>
+          <div class="photo-description">{{thumbnail.description}}</div>
+          <img class="favourite-button" [src]="thumbnail.flags.isPhotoFavourited ? '../../assets/heart-icon.png' : '../../assets/heart-disabled-icon.png'"
+               (click)="favouritePhoto($event, thumbnail)"/>
+          <img class="link-to-clipboard-button" src="../../assets/share-icon.webp"
+               (click)="shareLinkToClipboard($event, thumbnail._id)"/>
+          <div id="link-to-clipboard-alert-{{thumbnail._id}}" class="link-to-clipboard-alert hidden">Share Link
+            Copied!
+          </div>
+          <img *ngIf="defaultSelectValue !== 'Favourites'" class="delete-button" src="../../assets/trash-bin-icon.png"
+               (click)="callPhotoDelete($event, thumbnail._id, indexOfelement)"/>
+          <img class="like-button"
+               [src]="thumbnail.flags.isPhotoLiked ? '../../assets/like-icon.png' : '../../assets/like-icon-disabled2.png'"
+               (click)="likePhoto($event, thumbnail)"/>
+        </div>
+      </div>
+    </a>
+
+    <!-- Um pouco feio, mas nao da' para alinhar facilmente os elementos do last row no flex, e com o grid o width vai
+      sendo calculando com a insercao de novas imagens e portanto o alinhamento nao e' instantaneo. Isto corresponde
+      a 12 possiveis espacos vazios na ultima linha (tb para resolucoes de ecra maiores)-->
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+  </div>
+</div>

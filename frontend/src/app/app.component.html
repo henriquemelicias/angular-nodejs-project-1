@@ -1,0 +1,56 @@
+<div id="app">
+
+  <!-- TOP NAVBAR -->
+  <nav id="navbar" class="navbar navbar-expand navbar-dark bg-dark">
+
+    <!-- LEFT TEXT -->
+    <a id="logo" href="#" class="navbar-brand" tabindex="0">
+      <img src="assets/logo.png" style="height: 50px">
+      TugaGram
+    </a>
+
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <!-- HOME NAV-BUTTON -->
+      <li class="nav-item">
+        <a id="home-nav-item" href="/home" class="nav-link" routerLink="home" routerLinkActive="enabled" tabindex="0">
+          <h5>Home</h5>
+        </a>
+      </li>
+      <!-- USER NAV-BUTTON IF USER IS LOGGED IN -->
+      <li class="nav-item">
+        <a href="/add-photo" class="nav-link" *ngIf="isLoggedIn" routerLink="add-photo" routerLinkActive="enabled"><h5>Upload</h5></a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <!-- REGISTER NAV-BUTTON -->
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register" routerLinkActive="enabled"><h5>Signup</h5></a>
+      </li>
+      <!-- LOGIN NAV-BUTTON -->
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login" routerLinkActive="enabled"><h5>Login</h5></a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <!-- PROFILE NAV-BUTTON -->
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile" routerLinkActive="enabled">
+          <h5 id="profile-long-name" >{{ navbarProfileItemName }}</h5>
+          <h5 id="profile-short-name">Profile</h5>
+        </a>
+      </li>
+      <!-- LOGOUT NAV-BUTTON -->
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()"><h5>Logout</h5></a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <div class="body-container">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

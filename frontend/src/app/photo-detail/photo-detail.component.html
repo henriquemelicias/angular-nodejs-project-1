@@ -1,0 +1,41 @@
+<div *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+
+<div class="container-loading-gif" *ngIf="!photo">
+  <img id="loading-gif" src="assets/loading-image.gif">
+</div>
+
+<!-- [LIGHTBOX CONTAINER] -->
+<div id="lb-back">
+  <div id="lb-img"></div>
+</div>
+
+<div *ngIf="photo">
+  <img #photo1 src="{{photo.base64}}" class="zoomD"/>
+</div>
+
+<div *ngIf="photo">
+
+  <div class="container-photo-info">
+    <hr>
+    <div><label>Name:</label> {{photo.name}}</div>
+    <div *ngIf="photo.description.length > 0"><label><br>Description:</label> {{ photo.description}}</div>
+    <hr>
+  </div>
+
+  <div><label>Likes:</label> {{photo.likes}}</div>
+  <img id="like-button" tabindex="0" *ngIf="this.user && this.photo" class="like-button"
+       [src]="this.isPhotoLiked ? '../../assets/like-icon.png' : '../../assets/like-icon-disabled2.png'"
+       (click)="likePhoto()" (keydown.enter)="likePhoto()"/>
+
+  <img id="favourite-button" tabindex="0" *ngIf="this.user && this.photo" class="favourite-button"
+       [src]="this.isPhotoFavourited ? '../../assets/heart-icon.png' : '../../assets/heart-disabled-icon.png'"
+       (click)="favouritePhoto()" (keydown.enter)="favouritePhoto()"/>
+
+  <div>
+    <button *ngIf="isPhotoOwner" (click)="deletePhoto()">Delete</button>
+    <button (click)="shareLinkToClipboard()">Copy share link</button>
+    <div *ngIf="hasShareLinkBeenClicked">Link copied to clipboard!</div>
+  </div>
+</div>

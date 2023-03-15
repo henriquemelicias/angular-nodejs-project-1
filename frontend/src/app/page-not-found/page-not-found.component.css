@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container img {
+  height: 80vh;
+  min-height: 300px;
+}

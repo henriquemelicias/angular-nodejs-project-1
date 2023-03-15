@@ -1,0 +1,75 @@
+<div class="jumbotron">
+  <h2>Home</h2>
+</div>
+
+<h3 *ngIf="!isPhotoListIndexed">
+  Indexing photos...
+</h3>
+
+<div *ngIf="errorMsg">
+  {{errorMsg}}
+</div>
+
+
+<div class="sticky-container sticky">
+  <div id="sticky-child-left" *ngIf="isPhotoListIndexed" class="text-left hideable">
+    <h4>{{sortHorizontalText}} ➤</h4>
+  </div>
+
+  <div id="sticky-child-right" *ngIf="isPhotoListIndexed">
+    <h4>Sort:</h4>
+    <select [(ngModel)]="defaultSortValue" class="sort-select" (change)="sortSelection($event)">
+      <option *ngFor="let sortValue of sortValues" [ngValue]="sortValue"
+              class="sort-select-option">{{sortValue}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="text-photo-feed-container">
+
+  <h4 *ngIf="isPhotoListIndexed" class="text-vertical sticky">
+    {{sortVerticalText}} ➤
+  </h4>
+
+  <div class="photo-feed-container">
+    <a *ngFor="let thumbnail of thumbnails; let indexOfelement=index;">
+      <img id="loading-img" *ngIf="!thumbnail._id" src="{{thumbnail.base64Thumbnail}}">
+      <div *ngIf="thumbnail._id" class="photo-container" routerLink="/photo/{{thumbnail._id}}"
+           (keydown.enter)="onKeyDownEvent(thumbnail._id)">
+        <img src="{{thumbnail.base64Thumbnail}}">
+        <div class="overlay-image">
+          <div class="photo-name">{{thumbnail.name}}<br></div>
+          <div class="photo-description">{{thumbnail.description}}</div>
+          <img *ngIf="this.user" class="favourite-button"
+               [src]="thumbnail.flags.isPhotoFavourited ? '../../assets/heart-icon.png' : '../../assets/heart-disabled-icon.png'"
+               (click)="favouritePhoto($event, thumbnail)"/>
+          <img class="link-to-clipboard-button" src="../../assets/share-icon.webp"
+               (click)="shareLinkToClipboard($event, thumbnail._id)"/>
+          <div id="link-to-clipboard-alert-{{thumbnail._id}}" class="link-to-clipboard-alert hidden">Share Link
+            Copied!
+          </div>
+          <img *ngIf="this.user" class="like-button"
+               [src]="thumbnail.flags.isPhotoLiked ? '../../assets/like-icon.png' : '../../assets/like-icon-disabled2.png'"
+               (click)="likePhoto($event, thumbnail)"/>
+        </div>
+      </div>
+    </a>
+
+    <!-- Um pouco feio, mas nao da' para alinhar facilmente os elementos do last row no flex, e com o grid o width vai
+      sendo calculando com a insercao de novas imagens e portanto o alinhamento nao e' instantaneo. Isto corresponde
+      a 12 possiveis espacos vazios na ultima linha (tb para resolucoes de ecra maiores)-->
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+    <div class="filling-empty-space-childs"></div>
+  </div>
+</div>
+

@@ -1,0 +1,180 @@
+.jumbotron {
+  padding: 10px;
+  box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.3);
+}
+
+button {
+  border: rgba(255,255,255,0.4) 1px solid;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.2);
+  border-radius: 10px;
+  width: 190px;
+}
+
+.container-add-photos-button {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.container-add-photos-button > button {
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #343a40;
+  color: rgba(255,255,255,0.75);
+}
+
+button:focus {
+  background-color: #343a40;
+  color: rgba(255,255,255,0.75);
+}
+
+.button-disabled {
+  cursor: unset;
+  background-color: #f0f0f0 !important;
+  color: black !important;
+  opacity: 0.3 !important;
+  border: grey 1px solid !important;
+}
+
+.add-photos-button {
+  margin-bottom: 20px;
+}
+
+.container-photo-form {
+  display: flex;
+  justify-content: center;
+  margin-right: 110px;
+}
+
+#photo-form-left {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+#photo-form-left > label {
+  font-size: 17px;
+}
+
+#photo-form-right {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+}
+
+#photo-form-left > label {
+  margin: 15px;
+}
+
+#photo-form-right > input {
+  margin: 10px;
+}
+
+.container-photo-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.container-photo-preview img {
+  margin: 5px;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none !important;
+}
+
+.selected-prompt-file {
+  width: 160px !important;
+  height: 160px !important;
+  display: inline-flex !important;
+}
+
+.container-switch-prompt-file-buttons > button {
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.container-progress {
+  display: flex;
+  justify-content: center;
+}
+
+.container-progress-info-bar {
+  display: flex;
+}
+
+/*
+ Progress bars
+ */
+.progress {
+  height: 30px;
+  width: 80vw;
+}
+
+.container-selecting-files-error-messages {
+  margin-top: 20px;
+}
+
+.container-uploading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-uploading-message > img {
+  height: 50px;
+  margin-left: 10px;
+}
+
+.disable-pointer-events {
+  pointer-events: none !important;
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (max-width: 569px) {
+  button {
+    width: 44%;
+  }
+
+  .container-photo-form {
+    margin-right: 40px;
+  }
+
+  #photo-form-right {
+    width: 60%;
+  }
+
+  #photo-form-left > label {
+    margin: 15px;
+  }
+
+  #photo-form-right > input {
+    margin: 10px;
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  button {
+    width: 40%;
+  }
+}
+

@@ -1,0 +1,267 @@
+
+.jumbotron {
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+h3 {
+  margin-right: 20px;
+}
+
+.sticky-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 15px 5px;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+}
+
+#sticky-child-left {
+  position: relative;
+  top: 6px;
+  left: 50px;
+}
+
+#sticky-child-right {
+  display: flex;
+  margin-right: 35px;
+  justify-content: center;
+}
+
+#sticky-child-right > h4 {
+  margin-top: 4px;
+  margin-right: 15px;
+}
+
+.text-vertical {
+  top: 65px;
+  writing-mode: vertical-rl;
+  margin-left: 10px;
+  margin-top: 0;
+  transform: translateX(36%) rotate(180deg);
+}
+
+.text-photo-feed-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.photo-feed-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: -30px;
+}
+
+.photo-container {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+img {
+  margin: 5px;
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  outline: none !important;
+}
+
+#loading-img {
+  object-fit: scale-down;
+}
+
+.photo-container:focus > .overlay-image {
+  opacity: 1;
+}
+
+.filling-empty-space-childs {
+  width: 260px; /*the width of the images in this example*/
+  height: 0; /*Important! for the divs to collapse should they fall in a new row*/
+}
+
+.overlay-image {
+  position: absolute;
+  top: 35%;
+  left: 2%;
+  bottom: 1.5%;
+  width: 96%;
+  opacity: 0;
+  text-align: left;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.4); /* Black see-through */
+  color: white;
+  transition: .4s ease;
+  border-radius: 10px;
+}
+
+.favourite-button {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  left: 210px;
+  top: -118px;
+  border: none;
+  box-shadow: none;
+}
+
+.favourite-button:hover {
+  width: 35px;
+  height: 35px;
+  left: 206px;
+  top: -119px;
+}
+
+/* Share button */
+.link-to-clipboard-button {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 5px;
+  top: -117px;
+  border: none;
+  box-shadow: none;
+}
+
+.link-to-clipboard-button:hover {
+  width: 35px;
+  height: 35px;
+  left: 0;
+  top: -118px;
+}
+
+.link-to-clipboard-alert {
+  position: absolute;
+  width: 150px;
+  height: 25px;
+  padding-left: 10px;
+  left: 48px;
+  top: -112px;
+  border: none;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.delete-button {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  left: 5px;
+  top: 189px;
+  border: none;
+  box-shadow: none;
+}
+
+.delete-button:hover {
+  width: 35px;
+  height: 35px;
+  left: 1px;
+  top: 182px;
+}
+
+.like-button {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  left: 209px;
+  top: 189px;
+  border: none;
+  box-shadow: none;
+}
+
+.like-button:hover {
+  width: 35px;
+  height: 35px;
+  left: 204px;
+  top: 183px;
+}
+
+.photo-name {
+  padding-left: 4%;
+  padding-bottom: 2%;
+  font-size: 18px;
+}
+
+.photo-description {
+  padding-left: 4%;
+  font-size: 15px;
+}
+
+/* When you mouse over the container, fade in the overlay title */
+.photo-container:hover .overlay-image {
+  opacity: 1;
+}
+
+/*
+ Select box
+ */
+.sort-select {
+  width: 175px;
+  height: 40px;
+  font-size: 20px;
+}
+
+option {
+  color: white;
+}
+
+select {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 569px) {
+
+  .photo-feed-container img {
+    width: 350px;
+    height: 350px;
+    object-fit: none;
+  }
+
+  .photo-container {
+    max-width: 360px;
+  }
+
+  .hideable {
+    display: none;
+  }
+
+  /* Users on mobile need to click the image and enter the photo-detail page to have the option to delete or share the photo */
+  .overlay-image > img {
+    display: none;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (max-width: 410px) {
+  .photo-feed-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .photo-container {
+    max-width: 260px;
+  }
+
+  .hideable {
+    display: none;
+  }
+}
